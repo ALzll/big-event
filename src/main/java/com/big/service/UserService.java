@@ -1,6 +1,6 @@
 package com.big.service;
 
-import com.big.dao.User;
+import com.big.pojo.User;
 
 public interface UserService {
 

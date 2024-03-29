@@ -1,6 +1,6 @@
 package com.big.service.impl;
 
-import com.big.dao.User;
+import com.big.pojo.User;
 import com.big.mapper.UserMapper;
 import com.big.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectUserByUsername(username);
     }
 
+    //修改用户信息
     @Override
     public void updateUser(User user) {
         userMapper.updateUser(user);
     }
+
 }
