@@ -32,4 +32,16 @@ public class UserServiceImpl implements UserService {
         userMapper.updateUser(user);
     }
 
+    //查询ID
+    @Override
+    public User selectUserByID(Integer id) {
+        return userMapper.selectUserByID(id);
+    }
+
+    //更新密码
+    @Override
+    public void updatePwd(Integer id,String newPassword) {
+        userMapper.updatePwd(id,newPassword);
+    }
+
 }
