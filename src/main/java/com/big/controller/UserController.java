@@ -95,7 +95,7 @@ public class UserController {
     //增
     @PostMapping("/addCategory")
     public Result addCategory(String category_name,String category_alias,String create_user){
-        Category category = userService.selectCategroyByCategoryName(category_name);
+        Category category = userService.selectCategoryByCategoryName(category_name);
 
         if (category != null) {
             System.out.println(category);
@@ -107,11 +107,24 @@ public class UserController {
 //        user1.setPassword(md5PwdStr);
 //
 //        userService.insertUser(user1);
-        return Result.success("注册成功");
+        return Result.success("无类名");
     }
 
     //删
-//    @PostMapping("/deleteCategory")
+    @PostMapping("/deleteCategory")
+    public Result deleteCategory(Integer id){
+        userService.deleteCategoryByCategoryId(id);
+//
+
+//        Category category1 = new Category();
+//        category1.setUsername(username);
+//        String md5PwdStr = Md5Util.getMD5String(password);
+//        user1.setPassword(md5PwdStr);
+//
+//        userService.insertUser(user1);
+        return Result.success("成功");
+    }
+
     //改
 //    @PostMapping("/updateCategory")
     //查

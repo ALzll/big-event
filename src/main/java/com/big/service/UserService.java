@@ -15,5 +15,7 @@ public interface UserService {
 
     void updatePwd(Integer id,String newPassword);
 
-    Category selectCategroyByCategoryName(String categoryName);
+    Category selectCategoryByCategoryName(String category_name);
+
+    void deleteCategoryByCategoryId(Integer id);
 }
