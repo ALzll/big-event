@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 @Validated
@@ -79,7 +81,7 @@ public class UserController {
                 System.out.println(old_password);
                 System.out.println(new_password);
 
-                userService.updatePwd(id,new_password);
+                userService.updatePwd(id,Md5Util.getMD5String(new_password));
                 return Result.success("修改成功！");
             }else {
                 return Result.success("旧密码错误！！！");
@@ -93,26 +95,20 @@ public class UserController {
 
     //文章分类
     //增
-    @PostMapping("/addCategory")
-    public Result addCategory(String category_name,String category_alias,String create_user){
-        Category category = userService.selectCategoryByCategoryName(category_name);
 
-        if (category != null) {
-            System.out.println(category);
-            return Result.error("类名已存在");
-        }
-//        Category category1 = new Category();
-//        category1.setUsername(username);
-//        String md5PwdStr = Md5Util.getMD5String(password);
-//        user1.setPassword(md5PwdStr);
-//
-//        userService.insertUser(user1);
-        return Result.success("无类名");
+    @PostMapping("/addCategory")
+    public  Result addCategory(@RequestBody Category category){
+        System.out.println("add");
+        userService.inserCategory(category);
+        System.out.println(category);
+        return Result.success("新增成功");
     }
 
     //删
     @PostMapping("/deleteCategory")
     public Result deleteCategory(Integer id){
+//        if ()
+        System.out.println(id);
         userService.deleteCategoryByCategoryId(id);
 //
 
@@ -126,7 +122,16 @@ public class UserController {
     }
 
     //改
-//    @PostMapping("/updateCategory")
+    @PostMapping("/updateCategory")
+    public Result updateCategory(@RequestBody Category category){
+        userService.uodateCategory(category);
+        return Result.success("修改成功");
+    }
     //查
-//    @PostMapping("/selectCategory")
+    @PostMapping("/selectCategory")
+    public Result selectCategory(){
+        return Result.success(userService.selectCategorys());
+    }
+
+
 }

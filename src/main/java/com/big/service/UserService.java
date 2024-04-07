@@ -3,6 +3,8 @@ package com.big.service;
 import com.big.pojo.Category;
 import com.big.pojo.User;
 
+import java.util.List;
+
 public interface UserService {
 
     void insertUser(User user1);
@@ -15,7 +17,13 @@ public interface UserService {
 
     void updatePwd(Integer id,String newPassword);
 
-    Category selectCategoryByCategoryName(String category_name);
 
     void deleteCategoryByCategoryId(Integer id);
+
+    void inserCategory(Category category);
+
+    void uodateCategory(Category category);
+
+    List<Category> selectCategorys();
+
 }
