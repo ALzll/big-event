@@ -3,8 +3,12 @@ package com.big.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.big.mapper.ArcitleMapper;
 import com.big.mapper.CategoryMapper;
+import com.big.pojo.Article;
 import com.big.pojo.Category;
+import com.big.pojo.PageBean;
 import com.big.pojo.User;
 import com.big.mapper.UserMapper;
 import com.big.service.UserService;
@@ -21,7 +25,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Autowired
     private CategoryMapper categoryMapper;
-
+    @Autowired
+    private ArcitleMapper arcitleMapper;
 
     //注册
     //插入数据
@@ -102,5 +107,40 @@ public class UserServiceImpl implements UserService {
 
         return categoryMapper.selectList(null);
     }
+
+
+    //文章（增）
+    @Override
+    public void inserArcitle(Article article) {
+        article.setUpdateTime(LocalDateTime.now());
+        article.setCreateTime(LocalDateTime.now());
+        arcitleMapper.insert(article);
+    }
+
+    //文章（删）
+    @Override
+    public void deleteArticleByArticleId(Integer id) {
+        arcitleMapper.deleteById(id);
+    }
+
+    //文章（改）
+    @Override
+    public void uodateArticle(Article article) {
+        arcitleMapper.updateById(article);
+
+    }
+
+    //文章（查）
+    @Override
+    public PageBean<Article> selectArticlepage(Integer page, Integer size) {
+        Page<Article> articlePage = new Page<>(page,size);
+
+        Page<Article> page1 = arcitleMapper.selectPage(articlePage,null);
+        PageBean<Article> pageBean = new PageBean<>();
+        pageBean.setTotal(page1.getTotal());
+        pageBean.setItems(page1.getRecords());
+        return pageBean;
+    }
+
 
 }

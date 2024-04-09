@@ -1,8 +1,6 @@
 package com.big.controller;
 
-import com.big.pojo.Category;
-import com.big.pojo.Result;
-import com.big.pojo.User;
+import com.big.pojo.*;
 import com.big.service.UserService;
 import com.big.utils.Md5Util;
 import jakarta.validation.Valid;
@@ -11,8 +9,6 @@ import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -94,8 +90,8 @@ public class UserController {
     }
 
     //文章分类
-    //增
 
+    //增
     @PostMapping("/addCategory")
     public  Result addCategory(@RequestBody Category category){
         System.out.println("add");
@@ -133,5 +129,34 @@ public class UserController {
         return Result.success(userService.selectCategorys());
     }
 
+    //文章
+
+    //增
+    @PostMapping("/addArticle")
+    public  Result addArticle(@RequestBody Article article){
+        userService.inserArcitle(article);
+        return Result.success("新增成功");
+    }
+
+    //删
+    @PostMapping("/deleteArticle")
+    public Result deleteArticle(Integer id){
+        System.out.println(id);
+        userService.deleteArticleByArticleId(id);
+        return Result.success("成功");
+    }
+
+    //改
+    @PostMapping("/updateArticle")
+    public Result updateArticle(@RequestBody Article article){
+        userService.uodateArticle(article);
+        return Result.success("修改成功");
+    }
+    //查
+    @PostMapping("/selectArticle")
+    public Result<PageBean<Article>> selectArticle(Integer page, Integer size){
+        PageBean<Article> pageBean = userService.selectArticlepage(page,size);
+        return Result.success(pageBean);
+    }
 
 }
